@@ -1,17 +1,23 @@
-import { Component } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { findContact } from "./redux/actions";
 
+const Filter = () => {
+  const contacts = useSelector((state) => state.contacts)
+  const dispatch = useDispatch();
+  return (
+    <>
+      <h3>Find your contacts by name</h3>
 
-class Filter extends Component{
-    render() {
-        return (
-            <>
-            <h3>Find your contacts by name</h3>
-            
-            <input name="filter" type="text" onChange={this.props.filterFn} />
-            </>
-        )
-    }
-}
+      <input
+        name="filter"
+        type="text"
+        onChange={(e) => {
+          dispatch(findContact(e.target.value));
 
+        }}
+      />
+    </>
+  );
+};
 
-export default Filter
+export default Filter;
