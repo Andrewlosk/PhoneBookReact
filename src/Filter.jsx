@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { findContact } from "./redux/actions";
+
+import { findContact } from "./redux/filter/filterSlice";
 
 const Filter = () => {
-  const contacts = useSelector((state) => state.contacts)
+
   const dispatch = useDispatch();
   return (
     <>

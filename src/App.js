@@ -5,7 +5,8 @@ import PhoneList from "./PhoneList";
 import Filter from "./Filter";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-import { changeContacts } from "./redux/actions";
+// import { changeContacts } from "./redux/actions";
+import { addContact } from "./redux/contacts/contactSlice";
 
 const App = () => {
   const dispatch = useDispatch()
@@ -22,7 +23,7 @@ const App = () => {
       <h1>Phonebook</h1>
       <form onSubmit={(e) => {
         e.preventDefault();
-        dispatch(changeContacts({id:nanoid(), name: nameInp, number: numInp}));
+        dispatch(addContact({id:nanoid(), name: nameInp, number: numInp}));
         setNameInp('');
         setNumInp('');
       }}>
