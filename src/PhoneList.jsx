@@ -1,15 +1,17 @@
 import { useSelector, useDispatch } from "react-redux";
 
 // import { deleteContact } from "./redux/actions";
-import { deleteContact } from "./redux/contacts/contactSlice";
+// import { deleteContact } from "./redux/contacts/contactSlice";
+import { deleteContact } from "./redux/operations";
 
 
 const PhoneList = () => {
-  const contacts = useSelector((state) => state.contacts);
+  const contacts = useSelector((state) => state.contacts.items) 
   const filter = useSelector((state) => state.filter);
   const dispatch = useDispatch();
 
-
+  console.log(contacts);
+  
 
   const filteredContacts = contacts.filter((contact) =>
     contact.name.toUpperCase().includes(filter.toUpperCase())
@@ -18,11 +20,11 @@ const PhoneList = () => {
 
   return (
     <ul>
-      {filteredContacts.map(({ id, name, number }) => {
+      {filteredContacts.map(({createdAt,name,phone, id}) => {
         return (
           <li key={id}>
             <p>
-              {name}: {number}
+              {name}: {phone}
             </p>
             <button
               onClick={() => {

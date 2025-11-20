@@ -4,9 +4,11 @@ import { nanoid } from "nanoid";
 import PhoneList from "./PhoneList";
 import Filter from "./Filter";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // import { changeContacts } from "./redux/actions";
-import { addContact } from "./redux/contacts/contactSlice";
+// import { addContact } from "./redux/contacts/contactSlice";
+import { addContact } from "./redux/operations";
+import { fetchContacts } from "./redux/operations";
 
 const App = () => {
   const dispatch = useDispatch()
@@ -14,7 +16,9 @@ const App = () => {
   const [nameInp, setNameInp] = useState('')
   const [numInp, setNumInp] = useState('')
 
-
+  useEffect(() => {
+    dispatch(fetchContacts())
+  }, [dispatch])
 
   
 
@@ -23,7 +27,7 @@ const App = () => {
       <h1>Phonebook</h1>
       <form onSubmit={(e) => {
         e.preventDefault();
-        dispatch(addContact({id:nanoid(), name: nameInp, number: numInp}));
+        dispatch(addContact({id:nanoid(), name: nameInp, phone: numInp}));
         setNameInp('');
         setNumInp('');
       }}>
