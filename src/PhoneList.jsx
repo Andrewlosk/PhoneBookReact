@@ -13,13 +13,15 @@ const PhoneList = () => {
   
 
   const filteredContacts = contacts.filter((contact) =>
-    contact.name.toUpperCase().includes(filter.toUpperCase())
+    (contact.name || "").toUpperCase().includes(filter.toUpperCase())
   );
+
+
 
 
   return (
     <ul>
-      {filteredContacts.map(({createdAt,name,phone, id}) => {
+      {filteredContacts.map(({name,phone, id}) => {
         return (
           <li key={id}>
             <p>
