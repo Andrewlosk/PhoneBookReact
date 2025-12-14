@@ -32,7 +32,7 @@ const PhoneList = () => {
 
               }}
             >
-              Delete
+              Delete number
             </button>
           </li>
         );
