@@ -1,5 +1,5 @@
 import { createSlice, isPending, isRejected , isFulfilled} from "@reduxjs/toolkit";
-import { initialState } from "../constants";
+// import { initialState } from "../constants";
 
 import { fetchContacts, addContact, deleteContact } from "../operations";
 
@@ -49,19 +49,7 @@ const contactSlice = createSlice({
       )
   },
 
-  // reducers: {
-  //     addContact: {
-  //         reducer(state, action) {
-  //             state.push(action.payload)
-  //         }
-  //     },
-  //     deleteContact: {
-  //         reducer(state, action) {
-  //             return state.filter((contact) => contact.id !== action.payload)
-  //         }
-  //     }
-  // }
+
 });
 
-// export const {addContact, deleteContact} = contactSlice.actions;
 export const contactsReducer = contactSlice.reducer;
