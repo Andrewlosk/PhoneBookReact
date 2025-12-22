@@ -1,11 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 
 
+import { selectContactsArray } from "./redux/selectors";
+
 import { deleteContact } from "./redux/operations";
 
 
 const PhoneList = () => {
-  const contacts = useSelector((state) => state.contacts?.items ?? []) 
+  const contacts = useSelector(selectContactsArray) 
   const filter = useSelector((state) => state.filter ?? "");
   const dispatch = useDispatch();
 
