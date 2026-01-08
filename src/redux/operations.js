@@ -11,7 +11,10 @@ export const fetchContacts = createAsyncThunk(
   "contacts/fetchAll",
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get("/contacts");
+      const state = thunkAPI.getState();
+      const owner = state.auth?.user?.email;
+      const url = owner ? `/contacts?owner=${encodeURIComponent(owner)}` : "/contacts";
+      const response = await axios.get(url);
 
       const normalizedData = normalize(response.data, contactsListSchema);
 
@@ -26,7 +29,10 @@ export const addContact = createAsyncThunk(
   "contacts/addContact",
   async (item, thunkAPI) => {
     try {
-      const response = await axios.post("/contacts", item);
+      const state = thunkAPI.getState();
+      const owner = state.auth?.user?.email || null;
+      const itemWithOwner = { ...item, owner };
+      const response = await axios.post("/contacts", itemWithOwner);
 
       const normalizedData = normalize(response.data, constactSchema);
 
@@ -43,6 +49,12 @@ export const deleteContact = createAsyncThunk(
   "contacts/deleteContact",
   async (id, thunkAPI) => {
     try {
+      const state = thunkAPI.getState();
+      const contact = state.contacts.entities[id];
+      const owner = state.auth?.user?.email || null;
+      if (contact && contact.owner && contact.owner !== owner) {
+        return thunkAPI.rejectWithValue("Not authorized to delete this contact");
+      }
       await axios.delete(`/contacts/${id}`);
       return id;
     } catch (e) {
